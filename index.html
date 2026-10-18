@@ -1,195 +1,827 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>Profil Mahasiswa</title>
 <meta charset="UTF-8">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hilmatun Safura — Profil Mahasiswa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body {
+  :root{
+    --sage: #9bbf8f;
+    --sage-light: #cfe6c4;
+    --blush: #ffd7de;
+    --pink: #ffa3b6;
+    --pink-soft: #ffc9d4;
+    --pink-deep: #e8607d;
+    --rose: #db7387;
+    --rose-deep: #b8586c;
+    --cream: #fff6f4;
+    --paper: #fffdfc;
+    --ink: #3a342f;
+    --muted: #8a8078;
+    --hairline: rgba(58,52,47,0.09);
+    --card-shadow: 0 16px 36px rgba(232,96,125,0.14);
+    --bg: var(--cream);
+    --card-bg: var(--paper);
+  }
+
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --bg: #211b1c;
+      --paper: #2b2325;
+      --ink: #f3e9e6;
+      --muted: #bcaeab;
+      --hairline: rgba(255,255,255,0.09);
+      --card-shadow: 0 16px 36px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #211b1c;
+    --paper: #2b2325;
+    --ink: #f3e9e6;
+    --muted: #bcaeab;
+    --hairline: rgba(255,255,255,0.09);
+    --card-shadow: 0 16px 36px rgba(0,0,0,0.4);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ffe4ec, #fff6f8);
-}
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
 
-.header {
-    background: linear-gradient(135deg, #6f9f6b, #9fcf9a, #ffd6de);
+  h1, h2, h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  a{ color: var(--rose-deep); }
+
+  img{ max-width: 100%; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    padding: 70px 24px 130px;
+    background: linear-gradient(160deg, var(--pink-deep) 0%, var(--pink) 40%, var(--pink-soft) 66%, var(--blush) 88%, var(--sage-light) 100%);
     text-align: center;
-    padding: 40px 20px;
-    color: white;
-    border-bottom-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-}
+    color: #fffaf9;
+  }
 
-.header img {
-    width: 120px;
-    height: 120px;
+  .hero-decor{
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.55;
+  }
+
+  .hero-inner{
+    position: relative;
+    z-index: 1;
+    animation: rise 0.7s cubic-bezier(.2,.7,.3,1) both;
+  }
+
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-inner{ animation: none; }
+  }
+
+  .photo-frame{
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 5px;
+    background: conic-gradient(from 200deg, rgba(255,255,255,0.9), rgba(255,255,255,0.35), rgba(255,255,255,0.9));
+    box-shadow: 0 14px 30px rgba(0,0,0,0.16);
+  }
+
+  .hero-photo{
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid white;
-}
+    background: #f3d9de;
+    display: block;
+    border: 3px solid var(--paper);
+  }
 
-.container {
-    max-width: 600px;
-    margin: -40px auto 20px;
-    padding: 20px;
-}
+  .hero h1{
+    color: #fffaf9;
+    font-size: clamp(28px, 4.5vw, 40px);
+    margin-top: 20px;
+  }
 
-.card {
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: blur(12px);
-    padding: 15px;
-    border-radius: 18px;
-    margin-bottom: 15px;
-    box-shadow: 0 6px 18px rgba(255, 192, 203, 0.25);
-}
-
-.card h3 {
-    color: #e67a8a;
-}
-
-p {
-    margin: 5px 0;
-    color: #444;
-}
-
-.sosial a {
-    color: #e67a8a;
-    text-decoration: none;
+  .hero .role{
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13.5px;
+    letter-spacing: 0.2px;
+    color: var(--pink-deep);
+    background: rgba(255,255,255,0.92);
+    padding: 5px 16px;
+    border-radius: 999px;
     font-weight: 500;
-}
+  }
 
-.sosial a:hover {
-    text-decoration: underline;
-}
+  .hero .tagline{
+    max-width: 460px;
+    margin: 20px auto 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.95);
+  }
 
-.project {
-    background: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 8px;
-}
+  .hero-wave{
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    line-height: 0;
+    z-index: 1;
+  }
+  .hero-wave svg{ width: 100%; height: 56px; display: block; }
 
-.project a{
-    text-decoration:none;
-    color:#e67a8a;
-    font-weight:600;
-    display:block;
-    font-size:16px;
-}
+  .hero-actions{
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .btn-ghost{
+    border: 1px solid rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.14);
+    color: #fffaf9;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .btn-ghost:hover{ background: rgba(255,255,255,0.24); transform: translateY(-1px); }
 
-.project a:hover{
-    color:#d65f73;
-}
+  /* ---------- Floating controls ---------- */
+  .theme-toggle{
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 40;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--hairline);
+    background: var(--card-bg);
+    color: var(--ink);
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+    transition: transform 0.15s ease;
+  }
+  .theme-toggle:hover{ transform: scale(1.06); }
+
+  .scroll-top{
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    z-index: 40;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--pink-deep);
+    color: #fff;
+    font-size: 19px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 22px rgba(232,96,125,0.30);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .scroll-top.show{ opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .toast{
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 14px);
+    background: var(--ink);
+    color: var(--card-bg);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 60;
+    max-width: 88vw;
+    text-align: center;
+  }
+  .toast.show{ opacity: 1; transform: translate(-50%, 0); }
+
+  [data-copy]{
+    border-bottom: 1px dashed var(--muted);
+    cursor: pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .theme-toggle, .scroll-top, .toast, .btn-ghost{ transition: none; }
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    max-width: 940px;
+    margin: -76px auto 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .bento{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .bento .card{
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .span-2{ grid-column: span 2; }
+  .span-3{ grid-column: span 3; }
+
+  .card-center{ justify-content: center; }
+
+  @media (max-width: 760px){
+    .bento{ grid-template-columns: 1fr; }
+    .bento .span-2, .bento .span-3{ grid-column: span 1; }
+    .wrap{ margin-top: -60px; }
+  }
+
+  @media (min-width: 761px) and (max-width: 900px){
+    .bento{ grid-template-columns: repeat(2, 1fr); }
+    .bento .span-2, .bento .span-3{ grid-column: span 2; }
+  }
+
+  .card{
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 26px 24px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+
+  .card h3{
+    font-size: 18.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h3 .ico{
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink));
+    flex-shrink: 0;
+  }
+  .card h3 .ico svg{ width: 14px; height: 14px; fill: #fff; }
+
+  /* ---------- Fact list (sidebar) ---------- */
+  .fact-row{
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 13.5px;
+  }
+  .fact-row:last-child{ border-bottom: none; }
+  .fact-row span:first-child{ color: var(--muted); }
+  .fact-row span:last-child{ text-align: right; font-weight: 500; }
+
+  .stat-highlight{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, rgba(232,96,125,0.14), rgba(255,163,182,0.10));
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+  .stat-highlight .num{
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    color: var(--rose-deep);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .stat-highlight .label{
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+
+  /* ---------- About ---------- */
+  .about p{
+    line-height: 1.75;
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ---------- Timeline (pendidikan) ---------- */
+  .timeline{
+    position: relative;
+    padding-left: 28px;
+  }
+  .timeline::before{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--hairline);
+  }
+  .t-item{
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .t-item:last-child{ padding-bottom: 0; }
+  .t-item::before{
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--pink-deep);
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(232,96,125,0.14);
+  }
+  .t-item .level{
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .t-item .school{
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* ---------- Favorite pills ---------- */
+  .fav-group{ margin-bottom: 15px; }
+  .fav-group:last-child{ margin-bottom: 0; }
+  .fav-group .fav-label{
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .pills{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pill{
+    background: rgba(232,96,125,0.09);
+    color: var(--rose-deep);
+    border: 1px solid rgba(232,96,125,0.20);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+
+  /* ---------- Social ---------- */
+  .social-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .social-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 9px 10px;
+    border-radius: 12px;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .social-row:hover{ background: rgba(232,96,125,0.08); transform: translateX(2px); }
+  .social-icon{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--pink-deep), var(--blush));
+    flex-shrink: 0;
+  }
+  .social-icon svg{ width: 16px; height: 16px; fill: #fff; }
+  .social-name{ font-weight: 500; font-size: 14px; display: block; }
+  .social-handle{ font-size: 12px; color: var(--muted); display: block; }
+
+  /* ---------- Projects ---------- */
+  .project-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .project{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--hairline);
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .project:hover{
+    border-color: var(--pink-deep);
+    transform: translateX(2px);
+    box-shadow: 0 8px 18px rgba(232,96,125,0.12);
+  }
+  .project .p-icon{
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, rgba(232,96,125,0.16), rgba(255,163,182,0.16));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .project .p-title{ font-weight: 600; font-size: 14.5px; }
+  .project .p-sub{ font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  .project .p-arrow{ color: var(--pink-deep); font-size: 18px; margin-left: auto; flex-shrink: 0; }
+
+  /* ---------- Motto ---------- */
+  .motto{ text-align: center; padding: 8px 4px; }
+  .motto h3{ justify-content: center; }
+  .motto blockquote{
+    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  /* ---------- Hobi ---------- */
+  .hobi-card{
+    padding: 0;
+    overflow: hidden;
+  }
+  .hobi-top{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 22px 22px;
+    background: linear-gradient(135deg, var(--pink-deep), var(--pink) 55%, var(--pink-soft));
+    color: #fffaf9;
+  }
+  .hobi-top h3{ color: #fffaf9; margin-bottom: 0; }
+  .hobi-top .ico{ background: rgba(255,255,255,0.25); }
+  .hobi-illustration{
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+  }
+  .hobi-body{
+    margin: 20px 20px 0;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 20px 20px 22px;
+    box-shadow: 0 10px 24px rgba(232,96,125,0.12);
+    position: relative;
+  }
+  .hobi-card{ padding-bottom: 20px; }
+  .hobi-body p{
+    line-height: 1.7;
+    font-size: 14.5px;
+    color: var(--ink);
+    margin: 0 0 16px;
+  }
+  .hobi-chips{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hobi-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(232,96,125,0.08);
+    border: 1px solid rgba(232,96,125,0.18);
+    color: var(--rose-deep);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .hobi-card .card-pad{ padding: 0 0 20px; }
+
+  footer{
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 10px 20px 44px;
+  }
 </style>
 </head>
-
 <body>
 
-<div class="header">
-<img src="foto.png">
-<h2>Hilmatun Safura</h2>
-<p>24105111039 | Teknik Informatika</p>
+<div class="hero">
+  <svg class="hero-decor" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="70" fill="rgba(255,255,255,0.12)"/>
+    <circle cx="365" cy="60" r="45" fill="rgba(255,255,255,0.10)"/>
+    <circle cx="380" cy="250" r="90" fill="rgba(255,255,255,0.08)"/>
+    <circle cx="20" cy="270" r="34" fill="rgba(255,255,255,0.10)"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="photo-frame">
+      <img class="hero-photo" src="foto.png" alt="Foto Hilmatun Safura" onerror="this.style.display='none'">
+    </div>
+    <h1>Hilmatun Safura</h1>
+    <span class="role">24105111039 &nbsp;·&nbsp; Teknik Informatika</span>
+    <p class="tagline">Mahasiswa Teknik Informatika yang senang membangun website dan sedang belajar merapikan hal-hal kecil, dari kode sampai skincare routine.</p>
+    <div class="hero-actions">
+      <button id="save-contact" class="btn-ghost" type="button">💾 Simpan Kontak</button>
+    </div>
+  </div>
+
+  <div class="hero-wave">
+    <svg viewBox="0 0 500 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C150,60 350,0 500,30 L500,60 L0,60 Z" fill="var(--bg)"/>
+    </svg>
+  </div>
 </div>
 
-<div class="container">
+<div class="wrap">
+  <div class="bento">
 
-<div class="card">
-<h3>✨ Tentang Saya</h3>
-<p>Halo! Saya Hilmatun Safura, mahasiswa Teknik Informatika yang memiliki minat dalam pengembangan website.</p>
+    <div class="card">
+      <div class="stat-highlight">
+        <span class="num">3.90</span>
+        <span class="label">IPK saat ini,<br>semester 4</span>
+      </div>
+      <div class="fact-row"><span>Program studi</span><span>Teknik Informatika</span></div>
+      <div class="fact-row"><span>Fakultas</span><span>Teknik</span></div>
+      <div class="fact-row"><span>Status</span><span>Aktif</span></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-9 2.2-9 5v2h18v-2c0-2.8-4.6-5-9-5z"/></svg></span>Data Pribadi</h3>
+      <div class="fact-row"><span>Jenis kelamin</span><span>Perempuan</span></div>
+      <div class="fact-row"><span>TTL</span><span>Sigli, 30 Nov 2006</span></div>
+      <div class="fact-row"><span>Agama</span><span>Islam</span></div>
+      <div class="fact-row"><span>Alamat</span><span>Sanggeu</span></div>
+      <div class="fact-row"><span>No HP</span><span data-copy="089502972400">0895‑0297‑2457</span></div>
+      <div class="fact-row"><span>Email</span><span data-copy="hilmatunsafura@gmail.com">hilmatunsafura@gmail.com</span></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 2 8l10 6 8-4.8V17h2V8L12 2zM6 12.9V17c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.1l-6 3.6-6-3.6z"/></svg></span>Sosial Media</h3>
+      <div class="social-list">
+        <a class="social-row" href="https://instagram.com/Hilmasaffura" target="_blank" rel="noopener">
+          <span class="social-icon"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.4.42.6.24 1 .53 1.5 1 .5.5.78.9 1 1.5.18.4.37 1.2.42 2.4.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.4-.24.6-.53 1-1 1.5-.5.5-.9.78-1.5 1-.4.18-1.2.37-2.4.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.4-.42-.6-.24-1-.53-1.5-1-.5-.5-.78-.9-1-1.5-.18-.4-.37-1.2-.42-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.4.24-.6.53-1 1-1.5.5-.5.9-.78 1.5-1 .4-.18 1.2-.37 2.4-.42C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52 0-4.76.07-.97.05-1.5.2-1.84.34-.46.18-.79.4-1.14.75-.35.35-.57.68-.75 1.14-.14.35-.29.87-.34 1.84C3.1 8.48 3.1 8.85 3.1 12s0 3.52.07 4.76c.05.97.2 1.5.34 1.84.18.46.4.79.75 1.14.35.35.68.57 1.14.75.35.14.87.29 1.84.34 1.24.06 1.6.07 4.76.07s3.52 0 4.76-.07c.97-.05 1.5-.2 1.84-.34.46-.18.79-.4 1.14-.75.35-.35.57-.68.75-1.14.14-.35.29-.87.34-1.84.06-1.24.07-1.6.07-4.76s0-3.52-.07-4.76c-.05-.97-.2-1.5-.34-1.84-.18-.46-.4-.79-.75-1.14-.35-.35-.68-.57-1.14-.75-.35-.14-.87-.29-1.84-.34C15.52 4 15.15 4 12 4zm0 3.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.8a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6zm5.85-2a1.08 1.08 0 1 1-2.15 0 1.08 1.08 0 0 1 2.15 0z"/></svg></span>
+          <span><span class="social-name">Instagram</span><span class="social-handle">@Hilmasaffura</span></span>
+        </a>
+        <a class="social-row" href="https://www.tiktok.com/@hilsaffura" target="_blank" rel="noopener">
+          <span class="social-icon"><svg viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.4c0 1.5-1.2 2.7-2.7 2.7a2.7 2.7 0 0 1-2.7-2.7 2.7 2.7 0 0 1 2.7-2.7c.28 0 .55.04.8.12v-3.2a5.9 5.9 0 0 0-.8-.06A5.9 5.9 0 0 0 5 15.4a5.9 5.9 0 0 0 5.9 5.9 5.9 5.9 0 0 0 5.9-5.9V8.3a7.6 7.6 0 0 0 4.2 1.27V6.4a4.5 4.5 0 0 1-4.4-4.4z"/></svg></span>
+          <span><span class="social-name">TikTok</span><span class="social-handle">@hilsaffura</span></span>
+        </a>
+        <a class="social-row" href="https://github.com/hilmatunsafura-ux" target="_blank" rel="noopener">
+          <span class="social-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.5c.5.1.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.4 9.4 0 0 1 5 0c1.9-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.35 4.68-4.58 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
+          <span><span class="social-name">GitHub</span><span class="social-handle">hilmatunsafura</span></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card about span-2 card-center">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm0 4.5 7.5 13h-15L12 6.5zM11 11h2v4h-2v-4zm0 5h2v2h-2v-2z"/></svg></span>Tentang Saya</h3>
+      <p>Halo! Saya Hilmatun Safura, mahasiswa Teknik Informatika semester 4 dengan minat besar di pengembangan website. Saya suka mengubah ide sederhana menjadi halaman yang rapi dan enak dilihat, sambil terus belajar hal baru di sela-sela kuliah.</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3 1 8l11 5 9-4.1V17h2V8L12 3zM5 10.5V15c0 1.9 3 3.5 7 3.5s7-1.6 7-3.5v-4.5l-7 3.2-7-3.2z"/></svg></span>Riwayat Pendidikan</h3>
+      <div class="timeline">
+        <div class="t-item"><div class="level">Sekolah Dasar</div><div class="school">SDN 1 Peukan Pidie</div></div>
+        <div class="t-item"><div class="level">Sekolah Menengah Pertama</div><div class="school">SMPN 2 Sigli</div></div>
+        <div class="t-item"><div class="level">Sekolah Menengah Kejuruan</div><div class="school">SMKN 1 Sigli</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-9.6-9C.7 8.7 1.6 5.4 4.6 4.3c2.1-.8 4.2 0 5.4 1.8C11.2 4.3 13.3 3.5 15.4 4.3c3 1.1 3.9 4.4 2.2 7.7C15 16.4 12 21 12 21z"/></svg></span>Favorit</h3>
+      <div class="fav-group"><div class="fav-label">Makanan</div><div class="pills"><span class="pill">Seblak</span><span class="pill">Mie Ayam</span></div></div>
+      <div class="fav-group"><div class="fav-label">Minuman</div><div class="pills"><span class="pill">Matcha</span><span class="pill">Strawberry Milk</span></div></div>
+      <div class="fav-group"><div class="fav-label">Musik</div><div class="pills"><span class="pill">Pop</span><span class="pill">Slow</span></div></div>
+      <div class="fav-group"><div class="fav-label">Tontonan</div><div class="pills"><span class="pill">Daily Vlog</span><span class="pill">Beauty Vlog</span></div></div>
+    </div>
+
+    <div class="card hobi-card span-2">
+      <div class="hobi-top">
+        <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z"/></svg></span>Hobi</h3>
+        <div class="hobi-illustration">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="26" r="26" fill="rgba(255,255,255,0.20)"/>
+            <rect x="19" y="17" width="14" height="22" rx="4" fill="rgba(255,255,255,0.95)"/>
+            <rect x="22.5" y="11" width="7" height="7" rx="1.5" fill="rgba(255,255,255,0.95)"/>
+            <circle cx="26" cy="29" r="2.6" fill="var(--pink-deep)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="hobi-body">
+        <p>Skincare dan self care — waktu favorit untuk beristirahat sejenak dari layar dan tugas kuliah, biar tetap semangat menjalani hari.</p>
+        <div class="hobi-chips">
+          <span class="hobi-chip">🧴 Skincare</span>
+          <span class="hobi-chip">🤍 Self care</span>
+          <span class="hobi-chip">🌙 Me-time</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card motto card-center">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M7 8h4v6H8.5c0 1.4-1.1 2.5-2.5 2.5v2c2.5 0 4.5-2 4.5-4.5V8h-3.5zm10 0h4v6h-2.5c0 1.4-1.1 2.5-2.5 2.5v2c2.5 0 4.5-2 4.5-4.5V8h-3.5z"/></svg></span>Motto Hidup</h3>
+      <blockquote>"Jangan cintai orang yang tidak mencintai Allah, jika Allah saja dia tinggalkan apalagi dirimu."</blockquote>
+    </div>
+
+    <div class="card span-2">
+      <h3><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 8-4V16h2V7L12 2zM4 9.5v5.7C4 17.7 7.6 20 12 20s8-2.3 8-4.8V9.5l-8 4-8-4z"/></svg></span>Web yang Pernah Dibuat</h3>
+      <div class="project-list">
+        <a class="project" href="https://hilmatunsafura-ux.github.io/zifuracinema" target="_blank" rel="noopener">
+          <span class="p-icon">🎬</span>
+          <span><span class="p-title">Zifura Cinema</span><span class="p-sub">Website katalog film</span></span>
+          <span class="p-arrow">›</span>
+        </a>
+        <a class="project" href="https://hilmatunsafura-ux.github.io/Pengatur-keuangan/" target="_blank" rel="noopener">
+          <span class="p-icon">💰</span>
+          <span><span class="p-title">Pengatur Keuangan</span><span class="p-sub">Aplikasi pencatat keuangan</span></span>
+          <span class="p-arrow">›</span>
+        </a>
+        <a class="project" href="https://rahmatulzikra34-debug.github.io/booking-event/" target="_blank" rel="noopener">
+          <span class="p-icon">🎉</span>
+          <span><span class="p-title">Booking Event</span><span class="p-sub">Website pemesanan acara</span></span>
+          <span class="p-arrow">›</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="card">
-<h3>👤 Data Pribadi</h3>
-<p>Nama: Hilmatun Safura</p>
-<p>NPM: 24105111039</p>
-<p>Jenis Kelamin: Perempuan</p>
-<p>TTL: Sigli, 30 Nov 2006</p>
-<p>Agama: Islam</p>
-<p>Alamat: Sanggeu</p>
-<p>No HP: 089502972457</p>
-<p>Email: hilmatunsafura@gmail.com</p>
-</div>
+<footer>Dibuat dengan 🌸 oleh Hilmatun Safura</footer>
 
-<div class="card">
-<h3>🎓 Akademik</h3>
-<p>Prodi: Teknik Informatika</p>
-<p>Fakultas: Teknik</p>
-<p>Status: Aktif</p>
-<p>Semester: 4</p>
-<p>IPK: 3.90</p>
-</div>
+<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Ganti mode tampilan">🌙</button>
+<button id="scroll-top" class="scroll-top" type="button" aria-label="Kembali ke atas">↑</button>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<div class="card">
-<h3>📚 Pendidikan</h3>
-<p>SD: SDN 1 Peukan Pidie</p>
-<p>SMP: SMPN 2 Sigli</p>
-<p>SMA: SMKN 1 Sigli</p>
-</div>
+<script>
+(function(){
+  var root = document.documentElement;
 
-<div class="card">
-<h3>🍓 Favorite</h3>
-<p>Food: Seblak, Mie Ayam</p>
-<p>Drink: Matcha, Strawberry Milk</p>
-<p>Music: Pop, Slow</p>
-<p>Watching: Daily & Beauty Vlog</p>
-</div>
+  function systemDark(){
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function currentTheme(){
+    var attr = root.getAttribute('data-theme');
+    if(attr === 'dark' || attr === 'light') return attr;
+    return systemDark() ? 'dark' : 'light';
+  }
+  function applyToggleIcon(){
+    var btn = document.getElementById('theme-toggle');
+    if(!btn) return;
+    var dark = currentTheme() === 'dark';
+    btn.textContent = dark ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', dark ? 'Ganti ke mode siang' : 'Ganti ke mode malam');
+  }
+  try{
+    var saved = localStorage.getItem('hs-theme');
+    if(saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  }catch(e){}
+  applyToggleIcon();
 
-<div class="card sosial">
-<h3>🌸 Sosial Media</h3>
+  var themeBtn = document.getElementById('theme-toggle');
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try{ localStorage.setItem('hs-theme', next); }catch(e){}
+      applyToggleIcon();
+    });
+  }
 
-<p>
-Instagram:
-<a href="https://instagram.com/Hilmasaffura" target="_blank">@Hilmasaffura</a>
-</p>
+  var topBtn = document.getElementById('scroll-top');
+  if(topBtn){
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 420) topBtn.classList.add('show');
+      else topBtn.classList.remove('show');
+    });
+    topBtn.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
-<p>
-TikTok:
-<a href="https://www.tiktok.com/@hilsaffura" target="_blank">@hilsaffura</a>
-</p>
+  var toastTimer;
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 1800);
+  }
 
-<p>
-GitHub:
-<a href="https://github.com/hilmatunsafura" target="_blank">hilmatunsafura</a>
-</p>
+  var copyEls = document.querySelectorAll('[data-copy]');
+  for(var i = 0; i < copyEls.length; i++){
+    (function(el){
+      el.title = 'Ketuk untuk menyalin';
+      el.addEventListener('click', function(){
+        var text = el.getAttribute('data-copy');
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){
+            showToast('Disalin: ' + text);
+          }).catch(function(){
+            showToast('Gagal menyalin');
+          });
+        } else {
+          showToast('Disalin: ' + text);
+        }
+      });
+    })(copyEls[i]);
+  }
 
-</div>
-
-<div class="card">
-<h3>💖 Hobi</h3>
-<p>Skincare dan Self Care</p>
-</div>
-
-<div class="card">
-<h3>✨ Motto Hidup</h3>
-<p><i>Jangan cintai orang yang tidak mencintai Allah, jika Allah saja dia tinggalkan apalagi dirimu</i></p>
-</div>
-
-<div class="card">
-<h3>🌐 Web yang Pernah Saya Buat</h3>
-
-<div class="project">
-<a href="https://hilmatunsafura-ux.github.io/zifuracinema" target="_blank">
-🎬 Zifura Cinema
-</a>
-</div>
-
-<div class="project">
-<a href="https://hilmatunsafura-ux.github.io/Pengatur-keuangan/" target="_blank">
-💰 Pengatur Keuangan
-</a>
-</div>
-
-<div class="project">
-<a href="https://rahmatulzikra34-debug.github.io/booking-event/" target="_blank">
-🎉 Booking Event
-</a>
-</div>
-
-</div>
-
-</div>
+  var saveBtn = document.getElementById('save-contact');
+  if(saveBtn){
+    saveBtn.addEventListener('click', function(){
+      (async function(){
+        try{
+          var downloads = (window.claude && typeof window.claude.use === 'function')
+            ? await window.claude.use('downloads')
+            : null;
+          if(!downloads){ showToast('Fitur unduh tidak tersedia di tampilan ini'); return; }
+          var content = [
+            'Nama: Hilmatun Safura',
+            'NPM: 24105111039',
+            'Program Studi: Teknik Informatika',
+            'No HP: 089502972400',
+            'Email: hilmatunsafura@gmail.com',
+            'Instagram: @Hilmasaffura',
+            'TikTok: @hilsaffura',
+            'GitHub: https://github.com/hilmatunsafura-ux'
+          ].join('\n');
+          var res = await downloads.save({ filename: 'kontak-hilmatun-safura.txt', data: content });
+          showToast(res && res.status === 'delivered' ? 'Kontak terkirim' : 'Kontak tersimpan');
+        }catch(err){
+          if(err && err.code === 'declined') return;
+          showToast('Gagal menyimpan kontak');
+        }
+      })();
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
